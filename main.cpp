@@ -11,10 +11,12 @@ int main(int argc, char** argv) {
         return Catch::Session().run();
     }
 
-    cout<<"hello world"<<endl;
     Planner planner1=Planner();
+
     planner1.getFlights(argv[1]);
+
     planner1.findPlans(argv[2]);
+
     planner1.printTopPaths(argv[3]);
 
     return 0;
@@ -28,4 +30,4 @@ int main(int argc, char** argv) {
 
 
 //QUESTIONS
-//do we need catch test for adjlist
+//better way to use getline?
