@@ -6,6 +6,7 @@
 #define INC_20F_FLT_PLN_PLANNER_H
 
 #include "DSAdjList.h"
+#include "DSString.h"
 
 class Planner {
 private:

@@ -24,10 +24,10 @@ int main(int argc, char** argv) {
 //TODO
 //make adj list
 //make origin objects
-//add curnode iterator for linked list
-//read files
 
 
 
 //QUESTIONS
 //better way to use getline?
+
+//in the destination objects, have a linked list of airlines

@@ -53,6 +53,8 @@ void Planner::getFlights(char* inputFile){
 
         cout<<originstr<<","<<destinationstr<<","<<flightCost<<","<<flightTime<<","<<airlinestr<<endl;
 
+        flights.addFlight(origin,destination);
+
         //TODO
         //store data
     }
@@ -94,6 +96,8 @@ void Planner::findPlans(char* inputFile){
 
         //TODO
         //store data
+
+
     }
 }
 

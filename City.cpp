@@ -6,9 +6,18 @@
 
 //default constructor
 City::City(){
-    city="NULL";
+    cityName="NULL";
 }
 //overloaded constructor
 City::City(DSString location){
-    city=location;
+    cityName=location;
+}
+
+void City::addDestination(DSString destination) {
+    City dstntn=City(destination);
+    destinations.push_back(dstntn);
+}
+
+DSString City::getCityName() {
+    return cityName;
 }

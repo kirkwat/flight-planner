@@ -5,7 +5,7 @@
 #include "DSList.h"
 #include "DSStack.h"
 
-TEST_CASE("LinkedList class", "[linkedList]") {
+TEST_CASE("Linked List class", "[linkedList]") {
     SECTION("Linked list creation and push back") {
         DSList<int> list1;
         list1.push_back(1);
@@ -82,6 +82,29 @@ TEST_CASE("LinkedList class", "[linkedList]") {
         REQUIRE(list7.at(1) == 4);
         REQUIRE(list7.at(2) == 8);
     }
+
+    SECTION("Linked list iterating mechanism") {
+        DSList<int> list8;
+        REQUIRE(list8.ITRgetPointer()==nullptr);
+        list8.push_back(2);
+        list8.push_back(4);
+        list8.push_back(6);
+        list8.push_back(8);
+        list8.push_back(10);
+        REQUIRE(list8.ITRgetPayload()==2);
+        list8.ITRnext();
+        REQUIRE(list8.ITRgetPayload()==4);
+        list8.ITRnext();
+        REQUIRE(list8.ITRgetPayload()==6);
+        list8.ITRnext();
+        REQUIRE(list8.ITRgetPayload()==8);
+        list8.ITRnext();
+        REQUIRE(list8.ITRgetPayload()==10);
+        list8.ITRnext();
+        REQUIRE(list8.ITRgetPointer()==nullptr);
+        list8.ITRreset();
+        REQUIRE(list8.ITRgetPayload()==2);
+    }
 }
 
 TEST_CASE("Stack class", "[stack]") {
@@ -104,7 +127,6 @@ TEST_CASE("Stack class", "[stack]") {
     SECTION("Stack peek function and more push/pop tests") {
         DSStack<int> stack3;
         REQUIRE(stack3.isEmpty());
-        //REQUIRE(stack3.peek()==NULL);
         stack3.push(1);
         REQUIRE(!stack3.isEmpty());
         REQUIRE(stack3.peek()==1);
@@ -115,4 +137,9 @@ TEST_CASE("Stack class", "[stack]") {
         stack3.pop();
         REQUIRE(stack3.isEmpty());
     }
+}
+
+TEST_CASE("Adjacency list class", "[Adjlist]") {
+
+
 }

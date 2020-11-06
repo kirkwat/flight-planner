@@ -29,15 +29,17 @@ class DSList{
 private:
     Node<PlaceHolderType>* head;
     Node<PlaceHolderType>* tail;
+    //mechanism to iterate through list
+    Node<PlaceHolderType>* curITR;
 
 public:
     //default constructor
     DSList(){
-        head=tail=nullptr;
+        head=tail=curITR=nullptr;
     }
     //copy constructor
     DSList(const DSList & copy) {
-        head=tail=nullptr;
+        head=tail=curITR=nullptr;
         Node<PlaceHolderType>* temp = copy.head;
         while(temp!=nullptr){
             push_back(temp->payload);
@@ -84,6 +86,7 @@ public:
         if(head==nullptr){
             head=new Node<PlaceHolderType>(data);
             tail=head;
+            curITR=head;
         }
         else{
             //put node at end of list
@@ -98,6 +101,7 @@ public:
         if(head==nullptr){
             head=new Node<PlaceHolderType>(data);
             tail=head;
+            curITR=head;
         }
         else{
             //node to insert
@@ -111,6 +115,10 @@ public:
             }
             //head points to new node
             head = nodeToInsert;
+            //if curNode was at 0, reset back to 0
+            if(curITR==head->next){
+                curITR=head;
+            }
         }
     }
     //insert a node after a node with given index
@@ -123,6 +131,7 @@ public:
         if (head == nullptr) {
             head = nodeToInsert;
             tail = nodeToInsert;
+            curITR=head;
         }
             //insert at the end of list
         else if (curNode == tail) {
@@ -154,13 +163,26 @@ public:
         if (predNode!=nullptr) {
             predNode->next = sucNode;
         }
-        // if curNode points to head,
+        //if iterator is pointing to node to be deleted
+        //point it to the previous node
+        if(curITR==curNode){
+            curITR=predNode;
+        }
+        // if curNode points to head
         if (curNode == head) { // Removed head
             head = sucNode;
+            //if iterator point to removed node
+            if(curITR==curNode){
+                curITR=head;
+            }
         }
-
+        // if curNode points to tail
         if (curNode == tail) { // Removed tail
             tail = predNode;
+            //if iterator point to removed node
+            if(curITR==curNode){
+                curITR=tail;
+            }
         }
     }
     //return the size of the list
@@ -206,6 +228,22 @@ public:
     //return next pointer for given index
     Node<PlaceHolderType>* getNext(int index) {
         return nodeAt(index)->next;
+    }
+    //reset iterator to head
+    void ITRreset(){
+        curITR=head;
+    }
+    //move iterator to next node
+    void ITRnext(){
+        curITR=curITR->next;
+    }
+    //return payload at iterators location
+    PlaceHolderType& ITRgetPayload(){
+        return curITR->payload;
+    }
+    //return iterator
+    Node<PlaceHolderType>* ITRgetPointer(){
+        return curITR;
     }
 };
 

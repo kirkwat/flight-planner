@@ -12,11 +12,12 @@ using namespace std;
 
 class DSAdjList{
 private:
-    DSList<DSList<City>> flights;
+    DSList<City> flightPaths;
 
 public:
     DSAdjList();
-    //addEdge();
+    void addFlight(DSString,DSString);
+    bool findOrigin(DSString);
 
 };
 
