@@ -17,7 +17,9 @@ private:
 public:
     DSAdjList();
     void addFlight(DSString,DSString);
-    bool findOrigin(DSString);
+    int findOrigin(DSString);
+    City getOriginAt(int);
+    City getDestinationAt(int,int);
 
 };
 

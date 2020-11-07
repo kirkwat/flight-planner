@@ -4,6 +4,7 @@
 #include "catch.hpp"
 #include "DSList.h"
 #include "DSStack.h"
+#include "DSAdjList.h"
 
 TEST_CASE("Linked List class", "[linkedList]") {
     SECTION("Linked list creation and push back") {
@@ -139,7 +140,26 @@ TEST_CASE("Stack class", "[stack]") {
     }
 }
 
-TEST_CASE("Adjacency list class", "[Adjlist]") {
+TEST_CASE("Adjacency list class", "[adjacencyList]") {/*
+    SECTION("Adjacency list creation and push back") {
+        DSAdjList list1;
+        list1.addFlight("Dallas","Austin");
+        list1.addFlight("Austin","Houston");
+        list1.addFlight("Dallas","Houston");
+        list1.addFlight("Austin","Chicago");
+        //what list should look like:
+        // D | A- > H
+        // A | D -> H -> C
+        // H | A -> D
+        // C | A
+        //check origin list
+        REQUIRE(list1.getOriginAt(0).getCityName()=="Dallas");
+        REQUIRE(list1.getOriginAt(1).getCityName()=="Austin");
+        REQUIRE(list1.getOriginAt(2).getCityName()=="Houston");
+        REQUIRE(list1.getOriginAt(3).getCityName()=="Chicago");
+        //check destination lists
+        //REQUIRE(list1.getDestinationAt(0,0).getCityName()=="Austin");
+        //REQUIRE(list1.getDestinationAt(0,1).getCityName()=="Houston");
 
-
+    }*/
 }

@@ -17,7 +17,9 @@ public:
     City();
     City(DSString);
     void addDestination(DSString);
+    void addDestination2(City);
     DSString getCityName();
+    City getDestination(int);
 
 };
 
