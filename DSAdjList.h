@@ -6,20 +6,20 @@
 #define INC_20F_FLT_PLN_DSADJLIST_H
 
 #include "DSList.h"
-#include "City.h"
+#include "Origin.h"
 
 using namespace std;
 
 class DSAdjList{
 private:
-    DSList<City> flightPaths;
+    DSList<Origin> flightPaths;
 
 public:
     DSAdjList();
     void addFlight(DSString,DSString);
     int findOrigin(DSString);
-    City getOriginAt(int);
-    City getDestinationAt(int,int);
+    Origin getOriginAt(int);
+    Destination getDestinationAt(int,int);
 
 };
 

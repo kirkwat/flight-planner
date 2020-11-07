@@ -9,68 +9,58 @@ using namespace std;
 DSAdjList::DSAdjList() {}
 //add flight to adjacency list
 void DSAdjList::addFlight(DSString origin, DSString destination){
-    //create cities
-    City orgn=City(origin);
-    City dstntn=City(destination);
-    //add both cities to origin list
-    flightPaths.push_back(orgn);
-    flightPaths.at(flightPaths.getSize()-1).addDestination2(dstntn);
-    flightPaths.push_back(dstntn);
-    flightPaths.at(flightPaths.getSize()-1).addDestination2(orgn);
-
-
-
-
-
-
-
-
-
-
-
-    //add origin city
-    int orgnLoc=findOrigin(origin);
-    //if origin is not already in list
-    if(orgnLoc==-1){
-        City orgn=City(origin);
-        orgn.addDestination(destination);
-        flightPaths.push_back(orgn);
+    int orgn1Loc=findOrigin(origin);
+    int orgn2Loc=findOrigin(destination);
+    //if both cities are new
+    if(orgn1Loc==-1&&orgn2Loc==-1){
+        //add origins to flight list
+        flightPaths.push_back(Origin(origin));
+        flightPaths.push_back(Origin(destination));
+        //add destinations and flight data to each origin
+        flightPaths.at(flightPaths.getSize()-2).addDestination(destination);
+        flightPaths.at(flightPaths.getSize()-1).addDestination(origin);
     }
-    //if origin is already in list
+    //if origin is new, but destination is not
+    else if(orgn1Loc==-1&&orgn2Loc!=-1){
+        //add new origins to list
+        flightPaths.push_back(Origin(origin));
+        //add destination and flight data to origins
+        flightPaths.at(flightPaths.getSize()-1).addDestination(destination);
+        flightPaths.at(orgn2Loc).addDestination(origin);
+    }
+    //if destination is new, but origin is not
+    else if(orgn1Loc!=-1&&orgn2Loc==-1){
+        //add new origins to list
+        flightPaths.push_back(Origin(destination));
+        //add destination and flight data to origins
+        flightPaths.at(orgn1Loc).addDestination(destination);
+        flightPaths.at(flightPaths.getSize()-1).addDestination(origin);
+    }
+    //if both the origin and destination already exist
     else{
-        flightPaths.at(orgnLoc).addDestination(destination);
-    }
-
-    //add destination city
-    orgnLoc=findOrigin(destination);
-    //if destination is not already in list
-    if(orgnLoc==-1){
-        City orgn=City(destination);
-        orgn.addDestination(origin);
-        flightPaths.push_back(orgn);
-    }
-    //if destination is already in list
-    else{
-        flightPaths.at(orgnLoc).addDestination(origin);
+        //add destination and flight data to origins
+        flightPaths.at(orgn1Loc).addDestination(destination);
+        flightPaths.at(orgn2Loc).addDestination(origin);
     }
 }
 //find origin city in list
 int DSAdjList::findOrigin(DSString city){
     if(flightPaths.getSize()!=0){
-        cout<<"GG"<<endl;
         for(int x=0;x<flightPaths.getSize();x++){
             if(city==flightPaths.at(x).getCityName()){
+                //return origin index if it is found
                 return x;
             }
         }
     }
+    //return -1 if origin is not found
     return -1;
 }
 //return origin city
-City DSAdjList::getOriginAt(int index) {
+Origin DSAdjList::getOriginAt(int index) {
     return flightPaths.at(index);
 }
 //return destination city
-City DSAdjList::getDestinationAt(int x, int y) {
+Destination DSAdjList::getDestinationAt(int x, int y) {
     return flightPaths.at(x).getDestination(y);
 }

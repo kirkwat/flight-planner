@@ -24,5 +24,5 @@ endforeach()
 
 set(CMAKE_CXX_STANDARD 14)
 #set(CMAKE_CXX_FLAGS_DEBUG "-O3")
-add_executable(${EXE_NAME} main.cpp City.cpp City.h DSAdjList.cpp DSAdjList.h DSList.h DSStack.h DSString.cpp DSString.h Planner.cpp Planner.h test.cpp)
+add_executable(${EXE_NAME} main.cpp City.cpp City.h DSAdjList.cpp DSAdjList.h DSList.h DSStack.h DSString.cpp DSString.h Planner.cpp Planner.h test.cpp Origin.cpp Origin.h Destination.cpp Destination.h)
 
