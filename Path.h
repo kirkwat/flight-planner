@@ -5,10 +5,17 @@
 #ifndef INC_20F_FLT_PLN_PATH_H
 #define INC_20F_FLT_PLN_PATH_H
 
+#include "DSString.h"
+#include "DSList.h"
 
 class Path {
+private:
+    DSList<DSString> connections;
+
+public:
+    Path();
+    void addConnection(DSString);
 
 };
-
 
 #endif //INC_20F_FLT_PLN_PATH_H

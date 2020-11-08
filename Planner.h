@@ -10,11 +10,13 @@
 #include "DSList.h"
 #include "DSStack.h"
 #include "Flight.h"
+#include "Path.h"
 
 class Planner {
 private:
     DSAdjList flights;
     DSList<Flight> requestedPaths;
+    DSList<Path> paths;
 
 public:
     Planner();

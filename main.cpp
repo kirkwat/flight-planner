@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
 
     planner1.getFlights(argv[1]);
 
-    //planner1.findPaths(argv[2]);
+    planner1.findPaths(argv[2]);
 
     planner1.printTopPaths(argv[3]);
 

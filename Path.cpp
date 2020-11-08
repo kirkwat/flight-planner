@@ -3,3 +3,10 @@
 //
 
 #include "Path.h"
+
+//default constructor
+Path::Path(){}
+//add connection to path
+void Path::addConnection(DSString city){
+    connections.push_back(city);
+}

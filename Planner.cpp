@@ -103,22 +103,33 @@ void Planner::findPaths(char* inputFile){
         //iterative backtracking to find flight path
         DSStack<DSString> stack;
         DSString source=requestedPaths.at(1).getSource();
+        cout<<"SOURCE:"<<source<<endl;
         DSString destination=requestedPaths.at(1).getDest();
+        cout<<"DEST:"<<destination<<endl;
         stack.push(source);
+        cout<<"STACK START:"<<stack.peek()<<endl;
+        int orgnListLoc = -1;
         //find paths through iterative backtracking
         while(!stack.isEmpty()) {
             //if destination is reached
             if(stack.peek()==destination){
-                //TODO
-                //store path and pop
+                cout<<"PATH FOUND"<<endl;
+                //store path
+                storePath(stack);
+                //pop
+                stack.pop();
+                //TODO FIX HERE
+                cout<<"STACK TOP:"<<stack.peek()<<endl;
+                flights.getOriginAt(orgnListLoc).ITRnext();
+                cout<<"ITR CITY"<<flights.getOriginAt(orgnListLoc).ITRget().getCityName()<<endl;
             }
             else{
                 //go to list of city that is on top of stack
-                int orgnListLoc = -1;
                 for (int x = 0; x < flights.getSize(); x++) {
                     if (stack.peek() == flights.getOriginAt(x).getCityName()) {
                         //return origin index if it is found
                         orgnListLoc = x;
+                        cout<<"ADJ LIST INDEX:"<<orgnListLoc<<endl;
                     }
                 }
                 //loop through connections in top
@@ -127,28 +138,34 @@ void Planner::findPaths(char* inputFile){
                     if(flights.getOriginAt(orgnListLoc).ITRgetPointer()==nullptr){
                         //pop top and reset iterator
                         stack.pop();
+                        cout<<"END OF CONNECTION LIST - STACK TOP:"<<stack.peek()<<endl;
                         flights.getOriginAt(orgnListLoc).ITRreset();
                         break;
                     }
                     DSString temp=flights.getOriginAt(orgnListLoc).ITRget().getCityName();
+                    cout<<"ITERATOR CITY:"<<temp<<endl;
                     //check if connection is in stack already
                     if(isInStack(stack,temp)){
                         //move iterator
+                        cout<<"MOVE CONNECTION ITERATOR"<<endl;
                         flights.getOriginAt(orgnListLoc).ITRnext();
                     }
                     else{
                         //push connection to stack
                         stack.push(temp);
+                        cout<<"PUSH CONNECTION - STACK TOP:"<<stack.peek()<<endl;
                         //move iterator
                         flights.getOriginAt(orgnListLoc).ITRnext();
+                        break;
                     }
                 }
             }
         }
     //}for loop
     //TODO
+    cout<<"HELLO"<<endl;
 }
-
+//output most efficient flight paths to output file
 void Planner::printTopPaths(char* outputFile){
     cout<<endl<<"Saving efficient paths to "<<outputFile<<"..."<<endl;
     //open file
@@ -196,5 +213,9 @@ bool Planner::isInStack(DSStack<DSString> stack,DSString word){
 }
 //store path
 void Planner::storePath(DSStack<DSString> stack) {
-
+    paths.push_back(Path());
+    while(!stack.isEmpty()){
+        paths.at(paths.getSize()-1).addConnection(stack.peek());
+        stack.pop();
+    }
 }
