@@ -245,6 +245,10 @@ public:
     Node<PlaceHolderType>* ITRgetPointer(){
         return curITR;
     }
+    //return iterator pointer
+    void ITRsetPointer(Node<PlaceHolderType>* temp){
+        curITR=temp;
+    }
 };
 
 #endif //INC_20F_FLT_PLN_DSLIST_H

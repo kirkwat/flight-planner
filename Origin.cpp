@@ -16,6 +16,7 @@ Origin::Origin(DSString location){
 void Origin::addDestination(DSString dstntn){
     //TODO DEAL WITH MULTIPLES
     destinations.push_back(Destination(dstntn));
+    currentITR=destinations.ITRgetPointer();
 }
 //return city string
 DSString Origin::getCityName() {
@@ -27,18 +28,28 @@ Destination Origin::getDestination(int index) {
 }
 //return destination at iterator node
 Destination Origin::getITR(){
+    cout<<"GET ITR CITY1:"<<currentITR->payload.getCityName()<<endl;
+    destinations.ITRsetPointer(currentITR);
+    cout<<"GET ITR CITY2:"<<currentITR->payload.getCityName()<<endl;
     return destinations.ITRgetPayload();
 }
 //return iterator pointer
 Node<Destination>*  Origin::getPointerITR(){
-    return destinations.ITRgetPointer();
+    return currentITR;
+    //return destinations.ITRgetPointer();
+}
+//set iterator pointer
+void  Origin::setPointerITR(){
+    currentITR=destinations.ITRgetPointer();
 }
 //move iterator
 void Origin::nextITR(){
-    cout<<"\tIN THE NEXT ITR FOR ORIGIN"<<endl;
-    //cout<<"DESTINATION1:"<<destinations.ITRgetPayload().getCityName();
+    cout<<"IN THE NEXT ITR FOR ORIGIN"<<endl;
+    cout<<"\tDESTINATION BEFORE:"<<destinations.ITRgetPayload().getCityName()<<endl;
     destinations.ITRnext();
-    //cout<<"DESTINATION2:"<<destinations.ITRgetPayload().getCityName();
+    currentITR=destinations.ITRgetPointer();
+    cout<<"\tDESTINATION AFTER:"<<destinations.ITRgetPayload().getCityName()<<endl;
+    cout<<"GET ITR CITY AFTER NEXT:"<<currentITR->payload.getCityName()<<endl;
 }
 //reset iterator
 void Origin::resetITR(){

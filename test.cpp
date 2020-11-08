@@ -5,6 +5,7 @@
 #include "DSList.h"
 #include "DSStack.h"
 #include "DSAdjList.h"
+#include "Destination.h"
 
 TEST_CASE("Linked List class", "[linkedList]") {
     SECTION("Linked list creation and push back") {
@@ -107,6 +108,29 @@ TEST_CASE("Linked List class", "[linkedList]") {
         list8.ITRreset();
         REQUIRE(list8.ITRgetPayload()==2);
     }
+
+    SECTION("Linked list iterating mechanism with objects") {
+        DSList<Destination> list9;
+        REQUIRE(list9.ITRgetPointer()==nullptr);
+        list9.push_back(Destination("Dallas"));
+        list9.push_back(Destination("Austin"));
+        list9.push_back(Destination("Houston"));
+        list9.push_back(Destination("San Antonio"));
+        list9.push_back(Destination("El Paso"));
+        REQUIRE(list9.ITRgetPayload().getCityName()=="Dallas");
+        list9.ITRnext();
+        REQUIRE(list9.ITRgetPayload().getCityName()=="Austin");
+        list9.ITRnext();
+        REQUIRE(list9.ITRgetPayload().getCityName()=="Houston");
+        list9.ITRnext();
+        REQUIRE(list9.ITRgetPayload().getCityName()=="San Antonio");
+        list9.ITRnext();
+        REQUIRE(list9.ITRgetPayload().getCityName()=="El Paso");
+        list9.ITRnext();
+        REQUIRE(list9.ITRgetPointer()==nullptr);
+        list9.ITRreset();
+        REQUIRE(list9.ITRgetPayload().getCityName()=="Dallas");
+    }
 }
 
 TEST_CASE("Stack class", "[stack]") {
@@ -171,5 +195,42 @@ TEST_CASE("Adjacency list class", "[adjacencyList]") {
         REQUIRE(list1.getDestinationAt(2,1).getCityName()=="Dallas");
         //for chicago
         REQUIRE(list1.getDestinationAt(3,0).getCityName()=="Austin");
+    }
+    SECTION("Adjacency list with linked list iterator") {
+        DSAdjList list2;
+        list2.addFlight("Dallas","Austin");
+        list2.addFlight("Austin","Houston");
+        list2.addFlight("Dallas","Houston");
+        list2.addFlight("Austin","Chicago");
+        //what list should look like:
+        // D | A- > H
+        // A | D -> H -> C
+        // H | A -> D
+        // C | A
+        //dallas origin list
+        REQUIRE(list2.getOriginAt(0).getCityName()=="Dallas");
+        REQUIRE(list2.getOriginAt(0).getITR().getCityName()=="Austin");
+        list2.getOriginAt(0).nextITR();
+        REQUIRE(list2.getOriginAt(0).getITR().getCityName()=="Houston");
+
+        /*
+
+
+        REQUIRE(list1.getOriginAt(1).getCityName()=="Austin");
+        REQUIRE(list1.getOriginAt(2).getCityName()=="Houston");
+        REQUIRE(list1.getOriginAt(3).getCityName()=="Chicago");
+        //check destination lists
+        //for dallas
+        REQUIRE(list1.getDestinationAt(0,0).getCityName()=="Austin");
+        REQUIRE(list1.getDestinationAt(0,1).getCityName()=="Houston");
+        //for austin
+        REQUIRE(list1.getDestinationAt(1,0).getCityName()=="Dallas");
+        REQUIRE(list1.getDestinationAt(1,1).getCityName()=="Houston");
+        REQUIRE(list1.getDestinationAt(1,2).getCityName()=="Chicago");
+        //for houston
+        REQUIRE(list1.getDestinationAt(2,0).getCityName()=="Austin");
+        REQUIRE(list1.getDestinationAt(2,1).getCityName()=="Dallas");
+        //for chicago
+        REQUIRE(list1.getDestinationAt(3,0).getCityName()=="Austin");*/
     }
 }

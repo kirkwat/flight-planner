@@ -123,10 +123,9 @@ void Planner::findPaths(char* inputFile){
                 //TODO FIX HERE
                 cout<<"STACK TOP AFTER:"<<stack.peek()<<endl;
                 cout<<"ITR CITY BEFORE:"<<flights.getOriginAt(orgnListLoc).getITR().getCityName()<<endl;
-                //TODO should be deleted when fixed
-                flights.getOriginAt(orgnListLoc).nextITR();
+                flights.getOriginAt(orgnListLoc).nextITR(); //TODO should be deleted when fixed
                 cout<<"ITR CITY AFTER:"<<flights.getOriginAt(orgnListLoc).getITR().getCityName()<<endl<<endl;
-                break;
+                break; //TODO delete after fix
             }
             else{
                 //go to list of city that is on top of stack

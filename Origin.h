@@ -13,6 +13,7 @@ class Origin {
 private:
     DSString cityName;
     DSList<Destination> destinations;
+    Node<Destination>* currentITR=nullptr;
 
 public:
     Origin();
@@ -23,6 +24,7 @@ public:
     int getDestinationsSize();
     Destination getITR();
     Node<Destination>* getPointerITR();
+    void setPointerITR();
     void nextITR();
     void resetITR();
 
