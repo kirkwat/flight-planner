@@ -64,3 +64,7 @@ Origin DSAdjList::getOriginAt(int index) {
 Destination DSAdjList::getDestinationAt(int x, int y) {
     return flightPaths.at(x).getDestination(y);
 }
+//return size of adjacency list
+int DSAdjList::getSize() {
+    return flightPaths.getSize();
+}

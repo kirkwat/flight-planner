@@ -20,6 +20,7 @@ public:
     int findOrigin(DSString);
     Origin getOriginAt(int);
     Destination getDestinationAt(int,int);
+    int getSize();
 
 };
 

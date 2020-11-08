@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
 
     planner1.getFlights(argv[1]);
 
-    planner1.findPlans(argv[2]);
+    //planner1.findPaths(argv[2]);
 
     planner1.printTopPaths(argv[3]);
 
@@ -24,3 +24,9 @@ int main(int argc, char** argv) {
 //flightData.txt pathsToCalculate.txt output.txt
 
 //in the destination objects, have a linked list of airlines
+
+//TODO
+//complete backtracking algorithm
+//output results
+//add flight cost, time
+//make thorough for extra cases

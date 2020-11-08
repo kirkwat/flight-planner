@@ -25,3 +25,23 @@ DSString Origin::getCityName() {
 Destination Origin::getDestination(int index) {
     return destinations.at(index);
 }
+//return destination at iterator node
+Destination Origin::ITRget(){
+    return destinations.ITRgetPayload();
+}
+//return iterator pointer
+Node<Destination>*  Origin::ITRgetPointer(){
+    return destinations.ITRgetPointer();
+}
+//move iterator
+void Origin::ITRnext(){
+    destinations.ITRnext();
+}
+//reset iterator
+void Origin::ITRreset(){
+    destinations.ITRreset();
+}
+//get destinations size
+int Origin::getDestinationsSize() {
+    return destinations.getSize();
+}

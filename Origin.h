@@ -20,6 +20,11 @@ public:
     void addDestination(DSString);
     DSString getCityName();
     Destination getDestination(int);
+    int getDestinationsSize();
+    Destination ITRget();
+    Node<Destination>* ITRgetPointer();
+    void ITRnext();
+    void ITRreset();
 
 };
 
