@@ -10,3 +10,11 @@ Path::Path(){}
 void Path::addConnection(DSString city){
     connections.push_back(city);
 }
+//display path
+void Path::printPath() {
+    cout<<"PATH: ";
+    for(int x=0;x<connections.getSize();x++){
+        cout<<connections.at(x)<<"->";
+    }
+    cout<<endl;
+}

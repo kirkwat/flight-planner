@@ -26,19 +26,22 @@ Destination Origin::getDestination(int index) {
     return destinations.at(index);
 }
 //return destination at iterator node
-Destination Origin::ITRget(){
+Destination Origin::getITR(){
     return destinations.ITRgetPayload();
 }
 //return iterator pointer
-Node<Destination>*  Origin::ITRgetPointer(){
+Node<Destination>*  Origin::getPointerITR(){
     return destinations.ITRgetPointer();
 }
 //move iterator
-void Origin::ITRnext(){
+void Origin::nextITR(){
+    cout<<"\tIN THE NEXT ITR FOR ORIGIN"<<endl;
+    //cout<<"DESTINATION1:"<<destinations.ITRgetPayload().getCityName();
     destinations.ITRnext();
+    //cout<<"DESTINATION2:"<<destinations.ITRgetPayload().getCityName();
 }
 //reset iterator
-void Origin::ITRreset(){
+void Origin::resetITR(){
     destinations.ITRreset();
 }
 //get destinations size

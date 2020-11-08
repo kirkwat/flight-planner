@@ -21,10 +21,10 @@ public:
     DSString getCityName();
     Destination getDestination(int);
     int getDestinationsSize();
-    Destination ITRget();
-    Node<Destination>* ITRgetPointer();
-    void ITRnext();
-    void ITRreset();
+    Destination getITR();
+    Node<Destination>* getPointerITR();
+    void nextITR();
+    void resetITR();
 
 };
 

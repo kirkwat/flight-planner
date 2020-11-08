@@ -15,6 +15,7 @@ private:
 public:
     Path();
     void addConnection(DSString);
+    void printPath();
 
 };
 

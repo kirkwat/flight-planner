@@ -241,7 +241,7 @@ public:
     PlaceHolderType& ITRgetPayload(){
         return curITR->payload;
     }
-    //return iterator
+    //return iterator pointer
     Node<PlaceHolderType>* ITRgetPointer(){
         return curITR;
     }
