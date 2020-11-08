@@ -13,7 +13,6 @@ class Origin {
 private:
     DSString cityName;
     DSList<Destination> destinations;
-    Node<Destination>* currentITR=nullptr;
 
 public:
     Origin();

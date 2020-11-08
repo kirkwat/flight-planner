@@ -30,6 +30,3 @@ int main(int argc, char** argv) {
 //output results
 //add flight cost, time
 //make thorough for extra cases
-
-//HELP TODO
-//itr next is broken in origin class

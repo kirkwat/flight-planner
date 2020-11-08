@@ -8,7 +8,7 @@
 Path::Path(){}
 //add connection to path
 void Path::addConnection(DSString city){
-    connections.push_back(city);
+    connections.insert_front(city);
 }
 //display path
 void Path::printPath() {

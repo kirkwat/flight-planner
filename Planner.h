@@ -16,7 +16,6 @@ class Planner {
 private:
     DSAdjList flights;
     DSList<Flight> requestedPaths;
-    DSList<Path> paths;
 
 public:
     Planner();
@@ -26,7 +25,6 @@ public:
     void printTopPaths(char*);
     int getNum(DSString);
     bool isInStack(DSStack<DSString>,DSString);
-    void storePath(DSStack<DSString>);
 };
 
 #endif //INC_20F_FLT_PLN_PLANNER_H

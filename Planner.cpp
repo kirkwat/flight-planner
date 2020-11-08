@@ -99,80 +99,63 @@ void Planner::findPaths(char* inputFile){
     //read input file and store data
     getRequested(inputFile);
     //calculate each flight
-    //for(int x=0;x<requestedPaths.getSize();x++){
+    for(int x=0;x<requestedPaths.getSize();x++){
         //iterative backtracking to find flight path
         DSStack<DSString> stack;
-        DSString source=requestedPaths.at(1).getSource();
+        DSString source=requestedPaths.at(x).getSource();
         cout<<"SOURCE:"<<source<<endl;
-        DSString destination=requestedPaths.at(1).getDest();
+        DSString destination=requestedPaths.at(x).getDest();
         cout<<"DEST:"<<destination<<endl;
         stack.push(source);
-        cout<<"STACK START:"<<stack.peek()<<endl;
         int orgnListLoc = -1;
         //find paths through iterative backtracking
         while(!stack.isEmpty()) {
             //if destination is reached
             if(stack.peek()==destination){
-                cout<<"PATH FOUND"<<endl;
                 //store path
-                storePath(stack);
-                paths.at(0).printPath();
-                cout<<"STACK TOP BEFORE:"<<stack.peek()<<endl;
-                //pop
+                requestedPaths.at(x).storePath(stack);
+                cout<<"Path found!"<<endl;
+                requestedPaths.at(x).printPathAt(requestedPaths.at(x).getPathsSize()-1);
+                //pop top of stack
                 stack.pop();
-                //TODO FIX HERE
-                cout<<"STACK TOP AFTER:"<<stack.peek()<<endl;
-                cout<<"ITR CITY BEFORE:"<<flights.getOriginAt(orgnListLoc).getITR().getCityName()<<endl;
-                flights.getOriginAt(orgnListLoc).nextITR(); //TODO should be deleted when fixed
-                cout<<"ITR CITY AFTER:"<<flights.getOriginAt(orgnListLoc).getITR().getCityName()<<endl<<endl;
-                break; //TODO delete after fix
             }
             else{
                 //go to list of city that is on top of stack
                 for (int x = 0; x < flights.getSize(); x++) {
-                    if (stack.peek() == flights.getOriginAt(x).getCityName()) {
+                    if (stack.peek() == flights.originAt(x).getCityName()) {
                         //return origin index if it is found
                         orgnListLoc = x;
-                        cout<<"ADJ LIST INDEX:"<<orgnListLoc<<endl;
                     }
                 }
-                DSString temp=flights.getOriginAt(orgnListLoc).getITR().getCityName();
+                DSString temp;
                 //loop through connections in top
-                for(int y=0;y<=flights.getOriginAt(orgnListLoc).getDestinationsSize();y++){
+                for(int y=0;y<=flights.originAt(orgnListLoc).getDestinationsSize();y++){
                     //check if iterator is null
-                    if(flights.getOriginAt(orgnListLoc).getPointerITR()==nullptr){
-                        //pop top and reset iterator
+                    if(flights.originAt(orgnListLoc).getPointerITR()==nullptr){
+                        //pop top of stack
                         stack.pop();
-                        cout<<"END OF CONNECTION LIST - STACK TOP:"<<stack.peek()<<endl;
-                        flights.getOriginAt(orgnListLoc).resetITR();
+                        //reset iterator
+                        flights.originAt(orgnListLoc).resetITR();
                         break;
                     }
-                    cout<<"ITERATOR CITY:"<<temp<<endl;
+                    temp=flights.originAt(orgnListLoc).getITR().getCityName();
                     //check if connection is in stack already
                     if(isInStack(stack,temp)){
                         //move iterator
-                        cout<<"MOVE CONNECTION ITERATOR"<<endl;
-                        cout<<"\tITR CITY BEFORE:"<<flights.getOriginAt(orgnListLoc).getITR().getCityName()<<endl;
-                        flights.getOriginAt(orgnListLoc).nextITR();
-                        cout<<"\tITR CITY AFTER:"<<flights.getOriginAt(orgnListLoc).getITR().getCityName()<<endl<<endl;
+                        flights.originAt(orgnListLoc).nextITR();
                     }
                     else{
                         //push connection to stack
                         stack.push(temp);
-                        cout<<"PUSH CONNECTION - STACK TOP:"<<stack.peek()<<endl;
                         //move iterator
-                        cout<<"\tMOVE CONNECTION ITERATOR"<<endl;
-                        cout<<"\t\tITR CITY BEFORE:"<<flights.getOriginAt(orgnListLoc).getITR().getCityName()<<endl;
-                        flights.getOriginAt(orgnListLoc).nextITR();
-                        cout<<"\t\tITR CITY AFTER:"<<flights.getOriginAt(orgnListLoc).getITR().getCityName()<<endl<<endl;
+                        flights.originAt(orgnListLoc).nextITR();
                         break;
                     }
                 }
             }
         }
-    //}for loop
-    //TODO
-    cout<<"HELLO"<<endl;
+        cout<<"Number of paths:"<<requestedPaths.at(x).getPathsSize()<<endl<<endl;
+    }
 }
 //output most efficient flight paths to output file
 void Planner::printTopPaths(char* outputFile){
@@ -189,6 +172,8 @@ void Planner::printTopPaths(char* outputFile){
     //DELETE
     DSString word="hello";
     file<<word<<endl;
+
+    cout<<"...Complete"<<endl;
 }
 
 //get number from string
@@ -212,22 +197,11 @@ int Planner::getNum(DSString input){
 }
 //find string in a stack
 bool Planner::isInStack(DSStack<DSString> stack,DSString word){
-    cout<<"CHECKING IF CITY IS IN STACK"<<endl;
     while(!stack.isEmpty()){
         if(stack.peek()==word){
-            cout<<"\t CITY IS IN STACK"<<endl;
             return true;
         }
         stack.pop();
     }
-    cout<<"\t CITY IS NOT IN STACK"<<endl;
     return false;
-}
-//store path
-void Planner::storePath(DSStack<DSString> stack) {
-    paths.push_back(Path());
-    while(!stack.isEmpty()){
-        paths.at(paths.getSize()-1).addConnection(stack.peek());
-        stack.pop();
-    }
 }

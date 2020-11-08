@@ -19,6 +19,7 @@ public:
     void addFlight(DSString,DSString);
     int findOrigin(DSString);
     Origin getOriginAt(int);
+    Origin& originAt(int);
     Destination getDestinationAt(int,int);
     int getSize();
 

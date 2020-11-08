@@ -208,29 +208,32 @@ TEST_CASE("Adjacency list class", "[adjacencyList]") {
         // H | A -> D
         // C | A
         //dallas origin list
-        REQUIRE(list2.getOriginAt(0).getCityName()=="Dallas");
-        REQUIRE(list2.getOriginAt(0).getITR().getCityName()=="Austin");
-        list2.getOriginAt(0).nextITR();
-        REQUIRE(list2.getOriginAt(0).getITR().getCityName()=="Houston");
-
-        /*
-
-
-        REQUIRE(list1.getOriginAt(1).getCityName()=="Austin");
-        REQUIRE(list1.getOriginAt(2).getCityName()=="Houston");
-        REQUIRE(list1.getOriginAt(3).getCityName()=="Chicago");
-        //check destination lists
-        //for dallas
-        REQUIRE(list1.getDestinationAt(0,0).getCityName()=="Austin");
-        REQUIRE(list1.getDestinationAt(0,1).getCityName()=="Houston");
-        //for austin
-        REQUIRE(list1.getDestinationAt(1,0).getCityName()=="Dallas");
-        REQUIRE(list1.getDestinationAt(1,1).getCityName()=="Houston");
-        REQUIRE(list1.getDestinationAt(1,2).getCityName()=="Chicago");
-        //for houston
-        REQUIRE(list1.getDestinationAt(2,0).getCityName()=="Austin");
-        REQUIRE(list1.getDestinationAt(2,1).getCityName()=="Dallas");
-        //for chicago
-        REQUIRE(list1.getDestinationAt(3,0).getCityName()=="Austin");*/
+        REQUIRE(list2.originAt(0).getCityName()=="Dallas");
+        REQUIRE(list2.originAt(0).getITR().getCityName()=="Austin");
+        list2.originAt(0).nextITR();
+        REQUIRE(list2.originAt(0).getITR().getCityName()=="Houston");
+        list2.originAt(0).nextITR();
+        REQUIRE(list2.originAt(0).getPointerITR()==nullptr);
+        //austin origin list
+        REQUIRE(list2.originAt(1).getCityName()=="Austin");
+        REQUIRE(list2.originAt(1).getITR().getCityName()=="Dallas");
+        list2.originAt(1).nextITR();
+        REQUIRE(list2.originAt(1).getITR().getCityName()=="Houston");
+        list2.originAt(1).nextITR();
+        REQUIRE(list2.originAt(1).getITR().getCityName()=="Chicago");
+        list2.originAt(1).nextITR();
+        REQUIRE(list2.originAt(1).getPointerITR()==nullptr);
+        //houston origin list
+        REQUIRE(list2.originAt(2).getCityName()=="Houston");
+        REQUIRE(list2.originAt(2).getITR().getCityName()=="Austin");
+        list2.originAt(2).nextITR();
+        REQUIRE(list2.originAt(2).getITR().getCityName()=="Dallas");
+        list2.originAt(2).nextITR();
+        REQUIRE(list2.originAt(2).getPointerITR()==nullptr);
+        //chicago origin list
+        REQUIRE(list2.originAt(3).getCityName()=="Chicago");
+        REQUIRE(list2.originAt(3).getITR().getCityName()=="Austin");
+        list2.originAt(3).nextITR();
+        REQUIRE(list2.originAt(3).getPointerITR()==nullptr);
     }
 }

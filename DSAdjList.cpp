@@ -56,8 +56,12 @@ int DSAdjList::findOrigin(DSString city){
     //return -1 if origin is not found
     return -1;
 }
-//return origin city
+//return origin city at given index
 Origin DSAdjList::getOriginAt(int index) {
+    return flightPaths.at(index);
+}
+//get access to origin at given index
+Origin& DSAdjList::originAt(int index) {
     return flightPaths.at(index);
 }
 //return destination city
