@@ -27,13 +27,12 @@ void Origin::addDestination(DSString dstntn){
 //add destination to flight
 void Origin::addDestination(DSString dstntn, int flightTime,int flightCost,DSString airline){
     //TODO FIX FOR MULTIPLES
-    /*
     for(int x=0;x<destinations.getSize();x++){
         if(destinations.at(x).getCityName()==dstntn){
             destinations.at(x).addAirline(flightTime,flightCost,airline);
             return;
         }
-    }*/
+    }
     destinations.push_back(Destination(dstntn,flightTime,flightCost,airline));
 }
 //return city string

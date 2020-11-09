@@ -22,6 +22,7 @@ public:
     void calculateTC();
     int getTime();
     int getCost();
+    int checkMultipleAirlines();
 
 };
 

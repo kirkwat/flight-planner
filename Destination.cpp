@@ -7,26 +7,23 @@
 //default constructor
 Destination::Destination(){
     cityName="NULL";
-    flightTime=0;
-    flightCost=0;
-    airline="NULL";
+    flightTimes.push_back(0);
+    flightCosts.push_back(0);
+    airlines.push_back("NULL");
 }
 //overloaded constructor
 Destination::Destination(DSString location){
     cityName=location;
-    flightTime=0;
-    flightCost=0;
-    airline="NULL";
+    flightTimes.push_back(0);
+    flightCosts.push_back(0);
+    airlines.push_back("NULL");
 }
 //overloaded constructor
 Destination::Destination(DSString location, int time, int cost, DSString line){
     cityName=location;
-    flightTime=time;
-    flightCost=cost;
-    airline=line;
-    //flightTimes.push_back(flightTime);
-    //flightCosts.push_back(flightCost);
-    //airlines.push_back(airline);
+    flightTimes.push_back(time);
+    flightCosts.push_back(cost);
+    airlines.push_back(line);
 }
 bool Destination::operator== (const Destination& copy)const{
     return cityName == copy.cityName;
@@ -35,16 +32,22 @@ bool Destination::operator== (const Destination& copy)const{
 DSString Destination::getCityName() {
     return cityName;
 }
-void Destination::addAirline(int flightTime,int flightCost,DSString airline){/*
+void Destination::addAirline(int flightTime,int flightCost,DSString airline){
     flightTimes.push_back(flightTime);
     flightCosts.push_back(flightCost);
-    airlines.push_back(airline);*/
+    airlines.push_back(airline);
 }
 //return flight time
-int Destination::getTime(){
-    return flightTime;
+int Destination::getTime(int index){
+    return flightTimes.at(index);
 }
 //return flight cost
-int Destination::getCost(){
-    return flightCost;
+int Destination::getCost(int index){
+    return flightCosts.at(index);
+}
+int Destination::getAirlinesSize() {
+    return airlines.getSize();
+}
+DSString Destination::getAirline(int index) {
+    return airlines.at(index);
 }

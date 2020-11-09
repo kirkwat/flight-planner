@@ -42,7 +42,9 @@ void Planner::getFlights(char* inputFile){
         file.getline(destination,20,'|');
         file.getline(cost,5,'|');
         file.getline(time,5,'|');
-        file.getline(airline,20);
+        //file.getline(airline,20);
+        file>>airline;
+        cout<<"HERE:"<<airline<<endl;
         //store as string
         DSString originstr=origin;
         DSString destinationstr=destination;
@@ -101,63 +103,77 @@ void Planner::findPaths(char* inputFile){
     getRequested(inputFile);
     //calculate each flight
     cout<<endl<<"Calculating flight plans..."<<endl;
-    for(int x=0;x<requestedPaths.getSize();x++){
+    for(int x=0;x<requestedPaths.getSize();x++) {
         //iterative backtracking to find flight path
         DSStack<Destination> stack;
-        DSString source=requestedPaths.at(x).getSource();
-        DSString destination=requestedPaths.at(x).getDest();
-        //put source on top of stack
+        DSString source = requestedPaths.at(x).getSource();
+        DSString destination = requestedPaths.at(x).getDest();
+        bool sourceExists=false,destExists = false;
         for (int y = 0; y < flights.getSize(); y++) {
-            if (source == flights.originAt(y).getCityName()) {
-                stack.push(flights.originAt(y).getDest());
-                break;
+            if (flights.originAt(y).getCityName() == destination) {
+                destExists = true;
+            }
+            if (flights.originAt(y).getCityName() == source) {
+                sourceExists = true;
             }
         }
-        int orgnListLoc = -1;
-        //find paths through iterative backtracking
-        while(!stack.isEmpty()) {
-            //if destination is reached
-            if(stack.peek()==destination){
-                //store path
-                requestedPaths.at(x).storePath(stack);
-                //pop top of stack
-                stack.pop();
-            }
-            else{
-                //go to list of city that is on top of stack
-                for (int y= 0; y < flights.getSize(); y++) {
-                    if (stack.peek() == flights.originAt(y).getCityName()) {
-                        //return origin index if it is found
-                        orgnListLoc = y;
+        if (destExists&&sourceExists){
+            //put source on top of stack
+                for (int y = 0; y < flights.getSize(); y++) {
+                    if (source == flights.originAt(y).getCityName()) {
+                        stack.push(flights.originAt(y).getDest());
                         break;
                     }
                 }
-                Destination temp;
-                //loop through connections in top
-                for(int y=0;y<=flights.originAt(orgnListLoc).getDestinationsSize();y++){
-                    //check if iterator is null
-                    if(flights.originAt(orgnListLoc).getPointerITR()==nullptr){
-                        //pop top of stack
-                        stack.pop();
-                        //reset iterator
-                        flights.originAt(orgnListLoc).resetITR();
-                        break;
-                    }
-                    temp=flights.originAt(orgnListLoc).getITR();
-                    //check if connection is in stack already
-                    if(isInStack(stack,temp)){
-                        //move iterator
-                        flights.originAt(orgnListLoc).nextITR();
-                    }
-                    else{
-                        //push connection to stack
-                        stack.push(temp);
-                        //move iterator
-                        flights.originAt(orgnListLoc).nextITR();
-                        break;
-                    }
+            int orgnListLoc = -1;
+            //find paths through iterative backtracking
+            while (!stack.isEmpty()) {
+                //if destination is reached
+                if (stack.peek() == destination) {
+                    //store path
+                    requestedPaths.at(x).storePath(stack);
+                    //pop top of stack
+                    stack.pop();
                 }
+                else {
+                    //go to list of city that is on top of stack
+                    for (int y = 0; y < flights.getSize(); y++) {
+                        if (stack.peek() == flights.originAt(y).getCityName()) {
+                            //return origin index if it is found
+                            orgnListLoc = y;
+                            break;
+                        }
+                    }
+                    Destination temp;
+                    //loop through connections in top
+                    for (int y = 0; y <= flights.originAt(orgnListLoc).getDestinationsSize(); y++) {
+                        //check if iterator is null
+                        if (flights.originAt(orgnListLoc).getPointerITR() == nullptr) {
+                            //pop top of stack
+                            stack.pop();
+                            //reset iterator
+                            flights.originAt(orgnListLoc).resetITR();
+                            break;
+                        }
+                        temp = flights.originAt(orgnListLoc).getITR();
+                        //check if connection is in stack already
+                        if (isInStack(stack, temp)) {
+                            //move iterator
+                            flights.originAt(orgnListLoc).nextITR();
+                        }
+                        else {
+                            //push connection to stack
+                            stack.push(temp);
+                            //move iterator
+                            flights.originAt(orgnListLoc).nextITR();
+                            break;
+                        }
+                    }
+               }
             }
+        }
+        else{
+            requestedPaths.at(x).setFlightNotPossible();
         }
     }
     cout<<"...Complete"<<endl;

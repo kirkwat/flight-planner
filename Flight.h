@@ -17,6 +17,7 @@ private:
     DSString dest;
     DSString effType;
     DSList<Path> paths;
+    bool flightPossible;
 
 public:
     Flight();
@@ -29,6 +30,7 @@ public:
     void printPaths(ofstream &fout);
     void sortPaths(int,int);
     void calculatePathsTC();
+    void setFlightNotPossible();
 };
 
 

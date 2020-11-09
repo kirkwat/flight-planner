@@ -11,6 +11,7 @@ Flight::Flight(){
     source="NULL";
     dest="NULL";
     effType="NULL";
+    flightPossible=true;
 }
 //overloaded constructor
 Flight::Flight(DSString strt,DSString fnsh,char type){
@@ -22,6 +23,7 @@ Flight::Flight(DSString strt,DSString fnsh,char type){
     else{
         effType="Time";
     }
+    flightPossible=true;
 }
 //store path
 void Flight::storePath(DSStack<Destination> stack) {
@@ -39,26 +41,28 @@ DSString Flight::getSource(){
 DSString Flight::getDest(){
     return dest;
 }
-//get destinations size
-int Flight::getPathsSize() {
-    return paths.getSize();
-}
 //print all found paths
 void Flight::printPaths(ofstream &fout){
-    calculatePathsTC();
-    sortPaths(0,paths.getSize()-1);
-    int z=0;
-    if(paths.getSize()<3){
-        z=paths.getSize();
+    if(flightPossible){
+        calculatePathsTC();
+        sortPaths(0,paths.getSize()-1);
+        int z=0;
+        if(paths.getSize()<3){
+            z=paths.getSize();
+        }
+        else{
+            z=3;
+        }
+        fout<<source<<", "<<dest<<" ("<<effType<<")"<<endl;
+        for(int y=0;y<z;y++){
+            fout<<"Path "<<y+1<<": "<<source<<" -> ";
+            paths.at(y).printPath(fout);
+            fout<<endl;
+        }
     }
     else{
-        z=3;
-    }
-    fout<<source<<", "<<dest<<" ("<<effType<<")"<<endl;
-    for(int y=0;y<z;y++){
-        fout<<"Path "<<y+1<<": "<<source<<" -> ";
-        paths.at(y).printPath(fout);
-        fout<<endl;
+        fout<<source<<", "<<dest<<" ("<<effType<<")"<<endl;
+        fout<<"Flight from "<<source<<" to "<<dest<<" is not possible, no paths shown."<<endl;
     }
 }
 void Flight::sortPaths(int left, int right){
@@ -93,4 +97,7 @@ void Flight::calculatePathsTC() {
     for(int a=0;a<paths.getSize();a++){
         paths.at(a).calculateTC();
     }
+}
+void Flight::setFlightNotPossible(){
+    flightPossible=false;
 }
