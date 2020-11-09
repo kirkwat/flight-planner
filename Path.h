@@ -7,15 +7,21 @@
 
 #include "DSString.h"
 #include "DSList.h"
+#include "Destination.h"
 
 class Path {
 private:
-    DSList<DSString> connections;
+    DSList<Destination> connections;
+    int time;
+    int cost;
 
 public:
     Path();
-    void addConnection(DSString);
-    void printPath();
+    void addConnection(Destination);
+    void printPath(ofstream &fout);
+    void calculateTC();
+    int getTime();
+    int getCost();
 
 };
 

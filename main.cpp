@@ -26,9 +26,6 @@ int main(int argc, char** argv) {
 //in the destination objects, have a linked list of airlines
 
 //TODO
-//output results
-//add flight cost, time
-
-//make thorough for extra cases
-    //flights with same source,destination, but different airline
-
+//dif airlines
+//cities in second file that are not in first file
+//organize code

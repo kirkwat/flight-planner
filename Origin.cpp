@@ -7,10 +7,12 @@
 //default constructor
 Origin::Origin(){
     cityName="NULL";
+    dest=Destination("NULL");
 }
 //overloaded constructor
 Origin::Origin(DSString location){
     cityName=location;
+    dest=Destination(location);
 }
 //add destination to flight/only city name for testing
 void Origin::addDestination(DSString dstntn){
@@ -24,12 +26,14 @@ void Origin::addDestination(DSString dstntn){
 }
 //add destination to flight
 void Origin::addDestination(DSString dstntn, int flightTime,int flightCost,DSString airline){
+    //TODO FIX FOR MULTIPLES
+    /*
     for(int x=0;x<destinations.getSize();x++){
         if(destinations.at(x).getCityName()==dstntn){
             destinations.at(x).addAirline(flightTime,flightCost,airline);
             return;
         }
-    }
+    }*/
     destinations.push_back(Destination(dstntn,flightTime,flightCost,airline));
 }
 //return city string
@@ -59,4 +63,7 @@ void Origin::resetITR(){
 //get destinations size
 int Origin::getDestinationsSize() {
     return destinations.getSize();
+}
+Destination Origin::getDest(){
+    return dest;
 }

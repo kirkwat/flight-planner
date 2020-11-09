@@ -53,6 +53,7 @@ void DSAdjList::addFlight(DSString origin, DSString destination, int flightTime,
         flightPaths.push_back(Origin(origin));
         flightPaths.push_back(Origin(destination));
         //add destinations and flight data to each origin
+
         flightPaths.at(flightPaths.getSize()-2).addDestination(destination,flightTime,flightCost,airline);
         flightPaths.at(flightPaths.getSize()-1).addDestination(origin,flightTime,flightCost,airline);
     }

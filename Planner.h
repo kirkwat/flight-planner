@@ -24,7 +24,7 @@ public:
     void getRequested(char*);
     void printTopPaths(char*);
     int getNum(DSString);
-    bool isInStack(DSStack<DSString>,DSString);
+    bool isInStack(DSStack<Destination>,Destination);
 };
 
 #endif //INC_20F_FLT_PLN_PLANNER_H

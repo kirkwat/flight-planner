@@ -28,32 +28,32 @@ void Planner::getFlights(char* inputFile){
     int rows=0;
     file>>rows;
 
-    char origin[15];
-    char destination[15];
+    char origin[20];
+    char destination[20];
     char cost[5];
     char time[5];
-    char airline[15];
+    char airline[20];
 
-    file.getline(origin,15);
+    file.getline(origin,20);
     //iterate through file
     for(int x=0;x<rows;x++){
         //read line
-        file.getline(origin,15,'|');
-        file.getline(destination,15,'|');
+        file.getline(origin,20,'|');
+        file.getline(destination,20,'|');
         file.getline(cost,5,'|');
         file.getline(time,5,'|');
-        file.getline(airline,15);
+        file.getline(airline,20);
         //store as string
         DSString originstr=origin;
         DSString destinationstr=destination;
         DSString coststr=cost;
         DSString timestr=time;
-        DSString airlinestr=airline;//TODO STORE
+        DSString airlinestr=airline;
         //get num from string
-        int flightTime=getNum(timestr);//TODO STORE
-        int flightCost=getNum(coststr);//TODO STORE
+        int flightTime=getNum(timestr);
+        int flightCost=getNum(coststr);
         //add flight
-        flights.addFlight(originstr,destinationstr);
+        flights.addFlight(originstr,destinationstr,flightTime,flightCost,airlinestr);
     }
     //close file
     file.close();
@@ -74,16 +74,16 @@ void Planner::getRequested(char *inputFile) {
     int rows=0;
     file>>rows;
 
-    char origin[15];
-    char destination[15];
+    char origin[20];
+    char destination[20];
     char effType;
 
     //iterate through file
     for(int x=0;x<rows;x++){
         //read line
-        file.getline(origin,15);
-        file.getline(origin,15,'|');
-        file.getline(destination,15,'|');
+        file.getline(origin,20);
+        file.getline(origin,20,'|');
+        file.getline(destination,20,'|');
         file>>effType;
         //store as string
         DSString originstr=origin;
@@ -100,14 +100,19 @@ void Planner::findPaths(char* inputFile){
     //read input file and store data
     getRequested(inputFile);
     //calculate each flight
+    cout<<endl<<"Calculating flight plans..."<<endl;
     for(int x=0;x<requestedPaths.getSize();x++){
         //iterative backtracking to find flight path
-        DSStack<DSString> stack;
+        DSStack<Destination> stack;
         DSString source=requestedPaths.at(x).getSource();
-        cout<<"SOURCE:"<<source<<endl;
         DSString destination=requestedPaths.at(x).getDest();
-        cout<<"DEST:"<<destination<<endl;
-        stack.push(source);
+        //put source on top of stack
+        for (int y = 0; y < flights.getSize(); y++) {
+            if (source == flights.originAt(y).getCityName()) {
+                stack.push(flights.originAt(y).getDest());
+                break;
+            }
+        }
         int orgnListLoc = -1;
         //find paths through iterative backtracking
         while(!stack.isEmpty()) {
@@ -115,20 +120,19 @@ void Planner::findPaths(char* inputFile){
             if(stack.peek()==destination){
                 //store path
                 requestedPaths.at(x).storePath(stack);
-                cout<<"Path found!"<<endl;
-                requestedPaths.at(x).printPathAt(requestedPaths.at(x).getPathsSize()-1);
                 //pop top of stack
                 stack.pop();
             }
             else{
                 //go to list of city that is on top of stack
-                for (int x = 0; x < flights.getSize(); x++) {
-                    if (stack.peek() == flights.originAt(x).getCityName()) {
+                for (int y= 0; y < flights.getSize(); y++) {
+                    if (stack.peek() == flights.originAt(y).getCityName()) {
                         //return origin index if it is found
-                        orgnListLoc = x;
+                        orgnListLoc = y;
+                        break;
                     }
                 }
-                DSString temp;
+                Destination temp;
                 //loop through connections in top
                 for(int y=0;y<=flights.originAt(orgnListLoc).getDestinationsSize();y++){
                     //check if iterator is null
@@ -139,7 +143,7 @@ void Planner::findPaths(char* inputFile){
                         flights.originAt(orgnListLoc).resetITR();
                         break;
                     }
-                    temp=flights.originAt(orgnListLoc).getITR().getCityName();
+                    temp=flights.originAt(orgnListLoc).getITR();
                     //check if connection is in stack already
                     if(isInStack(stack,temp)){
                         //move iterator
@@ -155,8 +159,8 @@ void Planner::findPaths(char* inputFile){
                 }
             }
         }
-        cout<<"Number of paths:"<<requestedPaths.at(x).getPathsSize()<<endl<<endl;
     }
+    cout<<"...Complete"<<endl;
 }
 //output most efficient flight paths to output file
 void Planner::printTopPaths(char* outputFile){
@@ -168,12 +172,12 @@ void Planner::printTopPaths(char* outputFile){
         cout << "Could not open file "<<outputFile<<"." << endl;
         return;
     }
-
-    //TODO
-    //DELETE
-    DSString word="hello";
-    file<<word<<endl;
-
+    //print all flights and paths
+    for(int x=0;x<requestedPaths.getSize();x++){
+        file<<"Flight "<<x+1<<": ";
+        requestedPaths.at(x).printPaths(file);
+        file<<endl;
+    }
     cout<<"...Complete"<<endl;
 }
 
@@ -197,9 +201,9 @@ int Planner::getNum(DSString input){
     return finalNum;
 }
 //find string in a stack
-bool Planner::isInStack(DSStack<DSString> stack,DSString word){
+bool Planner::isInStack(DSStack<Destination> stack,Destination city){
     while(!stack.isEmpty()){
-        if(stack.peek()==word){
+        if(stack.peek()==city){
             return true;
         }
         stack.pop();

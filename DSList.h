@@ -55,11 +55,11 @@ public:
                 temp = temp->next;
                 delete toDelete;
             }
-            head=nullptr;
+            head=tail=curITR=nullptr;
             Node<PlaceHolderType>* temp2 = copy.head;
             while(temp2 !=nullptr){
                 push_back(temp2->payload);
-                temp2=temp->next;
+                temp2=temp2->next;
             }
         }
         return *this;
@@ -205,6 +205,15 @@ public:
     }
     //return payload at given index
     PlaceHolderType& at(int index){
+        Node<PlaceHolderType>* temp=head;
+        //move temp pointer to index
+        for(int i=0;i<index;i++){
+            temp=temp->next;
+        }
+        return temp->payload;
+    }
+    //return payload at given index
+    PlaceHolderType& get(int index){
         Node<PlaceHolderType>* temp=head;
         //move temp pointer to index
         for(int i=0;i<index;i++){

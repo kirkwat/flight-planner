@@ -9,23 +9,26 @@
 #include "DSList.h"
 #include "DSStack.h"
 #include "Path.h"
+#include "Destination.h"
 
 class Flight {
 private:
     DSString source;
     DSString dest;
-    char effType;
+    DSString effType;
     DSList<Path> paths;
 
 public:
     Flight();
     Flight(DSString,DSString,char);
-    void storePath(DSStack<DSString>);
+    void storePath(DSStack<Destination>);
     DSString getSource();
     DSString getDest();
-    char getEffType();
+    DSString getEffType();
     int getPathsSize();
-    void printPathAt(int);
+    void printPaths(ofstream &fout);
+    void sortPaths(int,int);
+    void calculatePathsTC();
 };
 
 
