@@ -82,6 +82,7 @@ void DSAdjList::addFlight(DSString origin, DSString destination, int flightTime,
 }
 //find origin city in list
 int DSAdjList::findOrigin(DSString city){
+    //check if list is empty
     if(flightPaths.getSize()!=0){
         for(int x=0;x<flightPaths.getSize();x++){
             if(city==flightPaths.at(x).getCityName()){
@@ -93,10 +94,6 @@ int DSAdjList::findOrigin(DSString city){
     //return -1 if origin is not found
     return -1;
 }
-//return origin city at given index
-Origin DSAdjList::getOriginAt(int index) {
-    return flightPaths.at(index);
-}
 //get access to origin at given index
 Origin& DSAdjList::originAt(int index) {
     return flightPaths.at(index);
@@ -104,6 +101,10 @@ Origin& DSAdjList::originAt(int index) {
 //return destination city
 Destination DSAdjList::getDestinationAt(int x, int y) {
     return flightPaths.at(x).getDestination(y);
+}
+//return origin city at given index
+Origin DSAdjList::getOriginAt(int index) {
+    return flightPaths.at(index);
 }
 //return size of adjacency list
 int DSAdjList::getSize() {

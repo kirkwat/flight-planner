@@ -35,12 +35,7 @@ public:
     }
     //return true if stack is empty
     bool isEmpty(){
-        if(stack.getSize()==0){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return stack.getSize() == 0;
     }
 };
 

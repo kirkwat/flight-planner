@@ -18,16 +18,19 @@ private:
 public:
     Origin();
     Origin(DSString);
+
     void addDestination(DSString);
     void addDestination(DSString,int,int,DSString);
-    DSString getCityName();
-    Destination getDestination(int);
-    int getDestinationsSize();
+
     Destination getITR();
     Node<Destination>* getPointerITR();
     void nextITR();
     void resetITR();
+
     Destination getDest();
+    DSString getCityName();
+    Destination getDestination(int);
+    int getDestinationsSize();
 
 };
 

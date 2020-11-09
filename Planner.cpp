@@ -36,21 +36,28 @@ void Planner::getFlights(char* inputFile){
 
     file.getline(origin,20);
     //iterate through file
-    for(int x=0;x<rows;x++){
+    for(int x=0;x<rows;x++){//TODO FIX TO ROWS
         //read line
         file.getline(origin,20,'|');
         file.getline(destination,20,'|');
         file.getline(cost,5,'|');
         file.getline(time,5,'|');
-        //file.getline(airline,20);
-        file>>airline;
-        cout<<"HERE:"<<airline<<endl;
+        file.getline(airline,20,'\n');
         //store as string
         DSString originstr=origin;
         DSString destinationstr=destination;
         DSString coststr=cost;
         DSString timestr=time;
         DSString airlinestr=airline;
+        //remove carriage return character
+        for(int y=0;y<20;y++){
+            //find location
+            if(airline[y]=='\r'){
+                airline[y]='\0';
+                airlinestr=airline;
+                break;
+            }
+        }
         //get num from string
         int flightTime=getNum(timestr);
         int flightCost=getNum(coststr);
@@ -106,25 +113,30 @@ void Planner::findPaths(char* inputFile){
     for(int x=0;x<requestedPaths.getSize();x++) {
         //iterative backtracking to find flight path
         DSStack<Destination> stack;
+        //get source and destination
         DSString source = requestedPaths.at(x).getSource();
         DSString destination = requestedPaths.at(x).getDest();
+        //search for source and destination to make sure it exists
         bool sourceExists=false,destExists = false;
         for (int y = 0; y < flights.getSize(); y++) {
             if (flights.originAt(y).getCityName() == destination) {
+                //true if destination is found in origin list
                 destExists = true;
             }
             if (flights.originAt(y).getCityName() == source) {
+                //true if source is found in origin list
                 sourceExists = true;
             }
         }
+        //search for paths if source and destination exist in the list
         if (destExists&&sourceExists){
-            //put source on top of stack
-                for (int y = 0; y < flights.getSize(); y++) {
-                    if (source == flights.originAt(y).getCityName()) {
-                        stack.push(flights.originAt(y).getDest());
-                        break;
-                    }
+            //push source destination on top of stack
+            for (int y = 0; y < flights.getSize(); y++) {
+                if (source == flights.originAt(y).getCityName()) {
+                    stack.push(flights.originAt(y).getDest());
+                    break;
                 }
+            }
             int orgnListLoc = -1;
             //find paths through iterative backtracking
             while (!stack.isEmpty()) {
@@ -172,6 +184,7 @@ void Planner::findPaths(char* inputFile){
                }
             }
         }
+        //set flight as not possible if destination or source do not exist
         else{
             requestedPaths.at(x).setFlightNotPossible();
         }
@@ -216,13 +229,17 @@ int Planner::getNum(DSString input){
     //return page number
     return finalNum;
 }
-//find string in a stack
+//find destination in a stack
 bool Planner::isInStack(DSStack<Destination> stack,Destination city){
+    //search stack
     while(!stack.isEmpty()){
+        //return true if destination is found
         if(stack.peek()==city){
             return true;
         }
+        //pop if not found
         stack.pop();
     }
+    //return false if destination is not in stack
     return false;
 }

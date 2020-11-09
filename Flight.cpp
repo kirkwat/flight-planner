@@ -33,19 +33,15 @@ void Flight::storePath(DSStack<Destination> stack) {
         stack.pop();
     }
 }
-//get source
-DSString Flight::getSource(){
-    return source;
-}
-//get dest
-DSString Flight::getDest(){
-    return dest;
-}
 //print all found paths
 void Flight::printPaths(ofstream &fout){
+    //check if flight is possible
     if(flightPossible){
+        //calculate time and costs
         calculatePathsTC();
+        //sort paths by given efficiency
         sortPaths(0,paths.getSize()-1);
+        //set display loop limit
         int z=0;
         if(paths.getSize()<3){
             z=paths.getSize();
@@ -53,6 +49,7 @@ void Flight::printPaths(ofstream &fout){
         else{
             z=3;
         }
+        //display paths
         fout<<source<<", "<<dest<<" ("<<effType<<")"<<endl;
         for(int y=0;y<z;y++){
             fout<<"Path "<<y+1<<": "<<source<<" -> ";
@@ -60,27 +57,30 @@ void Flight::printPaths(ofstream &fout){
             fout<<endl;
         }
     }
+    //if path is not possible
     else{
         fout<<source<<", "<<dest<<" ("<<effType<<")"<<endl;
         fout<<"Flight from "<<source<<" to "<<dest<<" is not possible, no paths shown."<<endl;
     }
 }
+//sort paths for given mode of efficiency
 void Flight::sortPaths(int left, int right){
-    //end sort if vector size is less than or equal to 1
+    //end sort if size is less than or equal to 1
     if (left >= right){
         return;
     }
-    //quicksort page vector
+    //quicksort paths list
     Path pivot = paths.at(right);
     int num = left;
     for (int i = left; i <= right; i++){
-        //if true swap elements
+        //if true swap elements for time efficiency
         if (effType=="Time"&&paths.at(i).getTime() <= pivot.getTime()){
             Path temp=paths.at(num);
             paths.at(num)=paths.at(i);
             paths.at(i)=temp;
             num++;
         }
+        //if true swap elements for cost efficiency
         else if (effType=="Cost"&&paths.at(i).getCost() <= pivot.getCost()){
             Path temp=paths.at(num);
             paths.at(num)=paths.at(i);
@@ -93,11 +93,21 @@ void Flight::sortPaths(int left, int right){
     //sort right side
     sortPaths(num, right);
 }
+//calculate times and costs for each path
 void Flight::calculatePathsTC() {
     for(int a=0;a<paths.getSize();a++){
         paths.at(a).calculateTC();
     }
 }
+//if source or destination does not exist, flight is not possible
 void Flight::setFlightNotPossible(){
     flightPossible=false;
+}
+//get source
+DSString Flight::getSource(){
+    return source;
+}
+//get dest
+DSString Flight::getDest(){
+    return dest;
 }

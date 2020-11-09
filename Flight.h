@@ -22,15 +22,15 @@ private:
 public:
     Flight();
     Flight(DSString,DSString,char);
+
     void storePath(DSStack<Destination>);
-    DSString getSource();
-    DSString getDest();
-    DSString getEffType();
-    int getPathsSize();
     void printPaths(ofstream &fout);
     void sortPaths(int,int);
     void calculatePathsTC();
+
     void setFlightNotPossible();
+    DSString getSource();
+    DSString getDest();
 };
 
 

@@ -19,10 +19,12 @@ private:
 
 public:
     Planner();
+
     void getFlights(char*);
     void findPaths(char*);
     void getRequested(char*);
     void printTopPaths(char*);
+
     int getNum(DSString);
     bool isInStack(DSStack<Destination>,Destination);
 };

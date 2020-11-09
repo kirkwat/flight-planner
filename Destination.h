@@ -12,20 +12,22 @@ class Destination {
 private:
     DSString cityName;
     DSList<int> flightTimes;
-    DSList<int> flightCosts;
+    DSList<double> flightCosts;
     DSList<DSString> airlines;
 
 public:
     Destination();
     Destination(DSString);
     Destination(DSString,int,int,DSString);
-    DSString getCityName();
     bool operator== (const Destination&)const;
+
     void addAirline(int,int,DSString);
-    int getTime(int);
-    int getCost(int);
-    DSString getAirline(int);
+
     int getAirlinesSize();
+    int getTime(int);
+    double getCost(int);
+    DSString getAirline(int);
+    DSString getCityName();
 };
 
 

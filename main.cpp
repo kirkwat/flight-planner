@@ -9,23 +9,15 @@ int main(int argc, char** argv) {
     if (argc == 1) {
         return Catch::Session().run();
     }
-
+    //create planner
     Planner planner1=Planner();
-
+    //read and store flights
     planner1.getFlights(argv[1]);
-
+    //read and find requested paths
     planner1.findPaths(argv[2]);
-
+    //save best routes for each path
     planner1.printTopPaths(argv[3]);
-
 
     return 0;
 }
 //flightData.txt pathsToCalculate.txt output.txt
-
-//in the destination objects, have a linked list of airlines
-
-//TODO
-//dif airlines
-//cities in second file that are not in first file
-//organize code

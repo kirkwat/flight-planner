@@ -13,16 +13,17 @@ class Path {
 private:
     DSList<Destination> connections;
     int time;
-    int cost;
+    double cost;
 
 public:
     Path();
+
     void addConnection(Destination);
     void printPath(ofstream &fout);
     void calculateTC();
+
     int getTime();
-    int getCost();
-    int checkMultipleAirlines();
+    double getCost();
 
 };
 
