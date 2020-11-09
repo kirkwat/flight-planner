@@ -7,6 +7,7 @@
 
 #include "DSList.h"
 #include "Origin.h"
+#include "Destination.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ private:
 public:
     DSAdjList();
     void addFlight(DSString,DSString);
+    void addFlight(DSString,DSString,int,int,DSString);
     int findOrigin(DSString);
     Origin getOriginAt(int);
     Origin& originAt(int);

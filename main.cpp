@@ -26,7 +26,9 @@ int main(int argc, char** argv) {
 //in the destination objects, have a linked list of airlines
 
 //TODO
-//complete backtracking algorithm
 //output results
 //add flight cost, time
+
 //make thorough for extra cases
+    //flights with same source,destination, but different airline
+

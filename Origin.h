@@ -18,12 +18,12 @@ public:
     Origin();
     Origin(DSString);
     void addDestination(DSString);
+    void addDestination(DSString,int,int,DSString);
     DSString getCityName();
     Destination getDestination(int);
     int getDestinationsSize();
     Destination getITR();
     Node<Destination>* getPointerITR();
-    void setPointerITR();
     void nextITR();
     void resetITR();
 

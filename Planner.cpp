@@ -8,6 +8,7 @@
 #include <math.h>
 #include "DSString.h"
 #include "DSStack.h"
+#include "Destination.h"
 
 using namespace std;
 //default constructor
@@ -52,7 +53,7 @@ void Planner::getFlights(char* inputFile){
         int flightTime=getNum(timestr);//TODO STORE
         int flightCost=getNum(coststr);//TODO STORE
         //add flight
-        flights.addFlight(origin,destination);
+        flights.addFlight(originstr,destinationstr);
     }
     //close file
     file.close();

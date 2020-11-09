@@ -12,10 +12,25 @@ Origin::Origin(){
 Origin::Origin(DSString location){
     cityName=location;
 }
-//add destination to flight
+//add destination to flight/only city name for testing
 void Origin::addDestination(DSString dstntn){
-    //TODO DEAL WITH MULTIPLES
+    for(int x=0;x<destinations.getSize();x++){
+        if(destinations.at(x).getCityName()==dstntn){
+            //just return because there is not any info to add to destination
+            return;
+        }
+    }
     destinations.push_back(Destination(dstntn));
+}
+//add destination to flight
+void Origin::addDestination(DSString dstntn, int flightTime,int flightCost,DSString airline){
+    for(int x=0;x<destinations.getSize();x++){
+        if(destinations.at(x).getCityName()==dstntn){
+            destinations.at(x).addAirline(flightTime,flightCost,airline);
+            return;
+        }
+    }
+    destinations.push_back(Destination(dstntn,flightTime,flightCost,airline));
 }
 //return city string
 DSString Origin::getCityName() {

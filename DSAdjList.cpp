@@ -7,7 +7,7 @@
 using namespace std;
 //default constructor
 DSAdjList::DSAdjList() {}
-//add flight to adjacency list
+//add flight to adjacency list for testing with only source and destination
 void DSAdjList::addFlight(DSString origin, DSString destination){
     int orgn1Loc=findOrigin(origin);
     int orgn2Loc=findOrigin(destination);
@@ -41,6 +41,42 @@ void DSAdjList::addFlight(DSString origin, DSString destination){
         //add destination and flight data to origins
         flightPaths.at(orgn1Loc).addDestination(destination);
         flightPaths.at(orgn2Loc).addDestination(origin);
+    }
+}
+//add flight to adjacency list for all flight info
+void DSAdjList::addFlight(DSString origin, DSString destination, int flightTime, int flightCost, DSString airline){
+    int orgn1Loc=findOrigin(origin);
+    int orgn2Loc=findOrigin(destination);
+    //if both cities are new
+    if(orgn1Loc==-1&&orgn2Loc==-1){
+        //add origins to flight list
+        flightPaths.push_back(Origin(origin));
+        flightPaths.push_back(Origin(destination));
+        //add destinations and flight data to each origin
+        flightPaths.at(flightPaths.getSize()-2).addDestination(destination,flightTime,flightCost,airline);
+        flightPaths.at(flightPaths.getSize()-1).addDestination(origin,flightTime,flightCost,airline);
+    }
+        //if origin is new, but destination is not
+    else if(orgn1Loc==-1&&orgn2Loc!=-1){
+        //add new origins to list
+        flightPaths.push_back(Origin(origin));
+        //add destination and flight data to origins
+        flightPaths.at(flightPaths.getSize()-1).addDestination(destination,flightTime,flightCost,airline);
+        flightPaths.at(orgn2Loc).addDestination(origin,flightTime,flightCost,airline);
+    }
+        //if destination is new, but origin is not
+    else if(orgn1Loc!=-1&&orgn2Loc==-1){
+        //add new origins to list
+        flightPaths.push_back(Origin(destination));
+        //add destination and flight data to origins
+        flightPaths.at(orgn1Loc).addDestination(destination,flightTime,flightCost,airline);
+        flightPaths.at(flightPaths.getSize()-1).addDestination(origin,flightTime,flightCost,airline);
+    }
+        //if both the origin and destination already exist
+    else{
+        //add destination and flight data to origins
+        flightPaths.at(orgn1Loc).addDestination(destination,flightTime,flightCost,airline);
+        flightPaths.at(orgn2Loc).addDestination(origin,flightTime,flightCost,airline);
     }
 }
 //find origin city in list
