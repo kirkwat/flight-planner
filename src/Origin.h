@@ -1,7 +1,3 @@
-//
-// Created by watso on 11/7/2020.
-//
-
 #ifndef INC_20F_FLT_PLN_ORIGIN_H
 #define INC_20F_FLT_PLN_ORIGIN_H
 
@@ -9,11 +5,12 @@
 #include "DSList.h"
 #include "Destination.h"
 
+//This class contains characteristics of an origin of a flight plan.
 class Origin {
 private:
-    DSString cityName;
-    DSList<Destination> destinations;
-    Destination dest;
+    DSString cityName;                  //city origin
+    DSList<Destination> destinations;   //flights connected to origin
+    Destination dest;                   //destination connected flight plan origin
 
 public:
     Origin();

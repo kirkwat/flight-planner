@@ -1,28 +1,8 @@
-cmake_minimum_required(VERSION 3.14)
-project(20f-flt-pln)
-set (EXE_NAME flight_planner)
-
-##########################################
-# Students, edit the items below.  In the quotes,
-# put the names of the input files as they should appear
-# in the argv param to main.
-# Example:
-#   set (input01 "train_data.csv")
-#   set (input02 "train_target.csv")
-# etc....
-
-set (input01 "flightData.txt")
-set (input02 "pathsToCalculate.txt")
-
-#
-##########################################
-
-# Copy data files to build dir
-foreach(file IN LISTS input01 input02 input03 input04)
-    configure_file(${file} ${file} COPYONLY)
-endforeach()
-
+cmake_minimum_required(VERSION 3.15)
+project(flight_planner)
 set(CMAKE_CXX_STANDARD 14)
-#set(CMAKE_CXX_FLAGS_DEBUG "-O3")
-add_executable(${EXE_NAME} main.cpp DSAdjList.cpp DSAdjList.h DSList.h DSStack.h DSString.cpp DSString.h Planner.cpp Planner.h test.cpp Origin.cpp Origin.h Destination.cpp Destination.h Flight.cpp Flight.h Path.cpp Path.h)
+
+set(CMAKE_CXX_DEBUG “-O3”)
+
+add_executable(flight_planner src/main.cpp src/DSAdjList.cpp src/DSAdjList.h src/DSList.h src/DSStack.h src/DSString.cpp src/DSString.h src/Planner.cpp src/Planner.h src/test.cpp src/Origin.cpp src/Origin.h src/Destination.cpp src/Destination.h src/Flight.cpp src/Flight.h src/Path.cpp src/Path.h)
 

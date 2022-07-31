@@ -1,7 +1,3 @@
-//
-// Created by watso on 11/2/2020.
-//
-
 #ifndef INC_20F_FLT_PLN_DSADJLIST_H
 #define INC_20F_FLT_PLN_DSADJLIST_H
 
@@ -11,9 +7,10 @@
 
 using namespace std;
 
+//This class implements an adjacency list used to determine possible flight plans.
 class DSAdjList{
 private:
-    DSList<Origin> flightPaths;
+    DSList<Origin> flightPaths; //linked list storing flights
 
 public:
     DSAdjList();

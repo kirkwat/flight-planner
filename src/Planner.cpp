@@ -1,7 +1,3 @@
-//
-// Created by watso on 11/2/2020.
-//
-
 #include "Planner.h"
 #include <iostream>
 #include <fstream>
@@ -14,6 +10,7 @@ using namespace std;
 //default constructor
 Planner::Planner(){}
 //get and store flights
+//arguments - possible flights file path
 void Planner::getFlights(char* inputFile){
     ifstream file;
     cout<<"Reading "<<inputFile<<"..."<<endl;
@@ -36,7 +33,7 @@ void Planner::getFlights(char* inputFile){
 
     file.getline(origin,20);
     //iterate through file
-    for(int x=0;x<rows;x++){//TODO FIX TO ROWS
+    for(int x=0;x<rows;x++){
         //read line
         file.getline(origin,20,'|');
         file.getline(destination,20,'|');
@@ -69,6 +66,7 @@ void Planner::getFlights(char* inputFile){
     cout<<"...Complete"<<endl;
 }
 //get and store requested flights
+//arguments - requested flights file path
 void Planner::getRequested(char *inputFile) {
     ifstream file;
     cout<<endl<<"Reading "<<inputFile<<"..."<<endl;
@@ -105,6 +103,7 @@ void Planner::getRequested(char *inputFile) {
     cout<<"...Complete"<<endl;
 }
 //find routes for requested paths
+//arguments - requested flights file path
 void Planner::findPaths(char* inputFile){
     //read input file and store data
     getRequested(inputFile);
@@ -192,6 +191,7 @@ void Planner::findPaths(char* inputFile){
     cout<<"...Complete"<<endl;
 }
 //output most efficient flight paths to output file
+//arguments - output file path
 void Planner::printTopPaths(char* outputFile){
     cout<<endl<<"Saving efficient paths to "<<outputFile<<"..."<<endl;
     //open file
@@ -211,6 +211,7 @@ void Planner::printTopPaths(char* outputFile){
 }
 
 //get number from string
+//arguments - string representing an integer
 int Planner::getNum(DSString input){
     int number [5];//assuming num is not bigger than 99999
     int digit;
@@ -230,6 +231,7 @@ int Planner::getNum(DSString input){
     return finalNum;
 }
 //find destination in a stack
+//arguments - stack holding destinations, destination location
 bool Planner::isInStack(DSStack<Destination> stack,Destination city){
     //search stack
     while(!stack.isEmpty()){

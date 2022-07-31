@@ -1,7 +1,3 @@
-//
-// Created by watso on 11/8/2020.
-//
-
 #ifndef INC_20F_FLT_PLN_PATH_H
 #define INC_20F_FLT_PLN_PATH_H
 
@@ -9,11 +5,12 @@
 #include "DSList.h"
 #include "Destination.h"
 
+//This class contains characteristics of a path of a flight plan.
 class Path {
 private:
-    DSList<Destination> connections;
-    int time;
-    double cost;
+    DSList<Destination> connections;    //list of connected flight destinations
+    int time;                           //total time used in flight path
+    double cost;                        //total cost used in flight path
 
 public:
     Path();

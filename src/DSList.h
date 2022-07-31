@@ -1,36 +1,34 @@
-//
-// Created by watso on 11/2/2020.
-//
-
 #ifndef INC_20F_FLT_PLN_DSLIST_H
 #define INC_20F_FLT_PLN_DSLIST_H
 
 using namespace std;
 
+//This class implements a node to be used for the Linked List.
 template <typename PlaceHolderType>
 class Node{
 public:
-    Node* next;
-    Node* previous;
-    PlaceHolderType payload;
+    Node* next;                 //pointer to next node
+    Node* previous;             //pointer to previous node
+    PlaceHolderType payload;    //content of node
     //default constructor
     Node(){
         next=previous=nullptr;
     }
     //overloaded constructor
+    //arguments - referenced object
     Node(PlaceHolderType payload){
         this->payload=payload;
         next=previous=nullptr;
     }
 };
 
+//This class implements a templated Linked List.
 template <typename PlaceHolderType>
 class DSList{
 private:
-    Node<PlaceHolderType>* head;
-    Node<PlaceHolderType>* tail;
-    //mechanism to iterate through list
-    Node<PlaceHolderType>* curITR;
+    Node<PlaceHolderType>* head;        //first node in the list
+    Node<PlaceHolderType>* tail;        //last node in the list
+    Node<PlaceHolderType>* curITR;      //mechanism to iterate through list
 
 public:
     //default constructor
@@ -38,6 +36,7 @@ public:
         head=tail=curITR=nullptr;
     }
     //copy constructor
+    //arguments - referenced object
     DSList(const DSList & copy) {
         head=tail=curITR=nullptr;
         Node<PlaceHolderType>* temp = copy.head;
@@ -47,6 +46,7 @@ public:
         }
     }
     //copy assignment operator
+    //arguments - referenced object
     DSList& operator=(const DSList& copy){
         if(this != &copy){
             Node<PlaceHolderType>* temp = head;
@@ -81,6 +81,7 @@ public:
         }
     }
     //push back a new node into linked list
+    //arguments - node payload
     void push_back(PlaceHolderType data){
         //if list is empty
         if(head==nullptr){
@@ -96,6 +97,7 @@ public:
         }
     }
     //insert node at front of the list
+    //arguments - node payload
     void insert_front(PlaceHolderType data){
         //if list is empty
         if(head==nullptr){
@@ -122,6 +124,7 @@ public:
         }
     }
     //insert a node after a node with given index
+    //arguments - node index, node payload
     void InsertAfter(int index,PlaceHolderType data) {
         //placement node
         Node<PlaceHolderType> *curNode = nodeAt(index);
@@ -149,6 +152,7 @@ public:
         }
     }
     //remove a node with given index
+    //arguments - node index
     void removeAt(int index) {
         Node<PlaceHolderType> *curNode = nodeAt(index);
         //pointer for next node
@@ -204,6 +208,7 @@ public:
         return size;
     }
     //return payload at given index
+    //arguments - node index
     PlaceHolderType& at(int index){
         Node<PlaceHolderType>* temp=head;
         //move temp pointer to index
@@ -213,6 +218,7 @@ public:
         return temp->payload;
     }
     //return payload at given index
+    //arguments - node index
     PlaceHolderType& get(int index){
         Node<PlaceHolderType>* temp=head;
         //move temp pointer to index
@@ -222,6 +228,7 @@ public:
         return temp->payload;
     }
     //return node pointer for given index
+    //arguments - node index
     Node<PlaceHolderType>* nodeAt(int index){
         Node<PlaceHolderType>* temp=head;
 
@@ -231,10 +238,12 @@ public:
         return temp;
     }
     //return previous pointer for given index
+    //arguments - node index
     Node<PlaceHolderType>* getPrevious(int index){
         return nodeAt(index)->previous;
     }
     //return next pointer for given index
+    //arguments - node index
     Node<PlaceHolderType>* getNext(int index) {
         return nodeAt(index)->next;
     }
@@ -255,6 +264,7 @@ public:
         return curITR;
     }
     //return iterator pointer
+    //arguments - node pointer
     void ITRsetPointer(Node<PlaceHolderType>* temp){
         curITR=temp;
     }

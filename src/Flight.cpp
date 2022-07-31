@@ -1,7 +1,3 @@
-//
-// Created by watso on 11/7/2020.
-//
-
 #include "Flight.h"
 #include <iostream>
 #include <fstream>
@@ -14,6 +10,7 @@ Flight::Flight(){
     flightPossible=true;
 }
 //overloaded constructor
+//arguments - origin city, destination city, efficiency type
 Flight::Flight(DSString strt,DSString fnsh,char type){
     source=strt;
     dest=fnsh;
@@ -26,6 +23,7 @@ Flight::Flight(DSString strt,DSString fnsh,char type){
     flightPossible=true;
 }
 //store path
+//arguments - flight plan stack
 void Flight::storePath(DSStack<Destination> stack) {
     paths.push_back(Path());
     while(!stack.isEmpty()){
@@ -64,6 +62,7 @@ void Flight::printPaths(ofstream &fout){
     }
 }
 //sort paths for given mode of efficiency
+//arguments - left side of list, right side of list
 void Flight::sortPaths(int left, int right){
     //end sort if size is less than or equal to 1
     if (left >= right){

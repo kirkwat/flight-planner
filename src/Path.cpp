@@ -1,6 +1,3 @@
-//
-// Created by watso on 11/8/2020.
-//
 #include <iomanip>
 #include "Path.h"
 #include <iostream>
@@ -13,6 +10,7 @@ Path::Path(){
     cost=0;
 }
 //add connection to path
+//arguments - connected destination
 void Path::addConnection(Destination city){
     connections.insert_front(city);
 }

@@ -1,7 +1,3 @@
-//
-// Created by watso on 11/2/2020.
-//
-
 #ifndef INC_20F_FLT_PLN_DSSTACK_H
 #define INC_20F_FLT_PLN_DSSTACK_H
 
@@ -9,15 +5,17 @@
 
 using namespace std;
 
+//This class implements a templated Stack container.
 template <typename PlaceHolderType>
 class DSStack {
 private:
-    DSList<PlaceHolderType> stack;
+    DSList<PlaceHolderType> stack;  //linked list used to store elements
 
 public:
     //default constructor
     DSStack(){}
     //insert element at top of list
+    //arguments - payload
     void push(PlaceHolderType data){
         stack.insert_front(data);
     }

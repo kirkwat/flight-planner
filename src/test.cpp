@@ -1,6 +1,3 @@
-//
-// Created by watso on 11/2/2020.
-//
 #include "catch.hpp"
 #include "DSList.h"
 #include "DSStack.h"

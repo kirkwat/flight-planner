@@ -1,7 +1,3 @@
-//
-// Created by watso on 11/7/2020.
-//
-
 #include "Origin.h"
 
 //default constructor
@@ -10,11 +6,13 @@ Origin::Origin(){
     dest=Destination("NULL");
 }
 //overloaded constructor
+//arguments - origin city
 Origin::Origin(DSString location){
     cityName=location;
     dest=Destination(location);
 }
 //add destination to flight/only city name for testing
+//arguments - destination city
 void Origin::addDestination(DSString dstntn){
     //check if destination already exists
     for(int x=0;x<destinations.getSize();x++){
@@ -27,6 +25,7 @@ void Origin::addDestination(DSString dstntn){
     destinations.push_back(Destination(dstntn));
 }
 //add destination to flight
+//arguments - destination city, time of flight, cost of flight, airline of flight
 void Origin::addDestination(DSString dstntn, int flightTime,int flightCost,DSString airline){
     //check if destination already exists
     for(int x=0;x<destinations.getSize();x++){
@@ -64,6 +63,7 @@ DSString Origin::getCityName() {
     return cityName;
 }
 //return destination at given index
+//arguments - index for destination list
 Destination Origin::getDestination(int index) {
     return destinations.at(index);
 }

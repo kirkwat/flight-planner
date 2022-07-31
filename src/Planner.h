@@ -1,7 +1,3 @@
-//
-// Created by watso on 11/2/2020.
-//
-
 #ifndef INC_20F_FLT_PLN_PLANNER_H
 #define INC_20F_FLT_PLN_PLANNER_H
 
@@ -12,10 +8,13 @@
 #include "Flight.h"
 #include "Path.h"
 
+//This class is the launcher of the program and determines all possible flight plans.
+//In order to determine the possible and requested flights, the input files must be parsed.
+//After parsing the files, the flight plans can be calculated.
 class Planner {
 private:
-    DSAdjList flights;
-    DSList<Flight> requestedPaths;
+    DSAdjList flights;                  //contains all possible flights
+    DSList<Flight> requestedPaths;      //contains all requested origin/destination pairs
 
 public:
     Planner();

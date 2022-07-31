@@ -1,19 +1,16 @@
-//
-// Created by watso on 11/7/2020.
-//
-
 #ifndef INC_20F_FLT_PLN_DESTINATION_H
 #define INC_20F_FLT_PLN_DESTINATION_H
 
 #include "DSString.h"
 #include "DSList.h"
 
+//This class contains characteristics of a flight destination.
 class Destination {
 private:
-    DSString cityName;
-    DSList<int> flightTimes;
-    DSList<double> flightCosts;
-    DSList<DSString> airlines;
+    DSString cityName;          //city of destination
+    DSList<int> flightTimes;    //time of each flight to destination
+    DSList<double> flightCosts; //cost of each flight to destination
+    DSList<DSString> airlines;  //airlines used to get to destinaton
 
 public:
     Destination();
