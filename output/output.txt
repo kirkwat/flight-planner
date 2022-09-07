@@ -1,8 +1,1 @@
-Flight 1: Dallas, Houston (Time)
-Path 1: Dallas -> Houston(Spirit). Time: 51 Cost: 101.00
-Path 2: Dallas -> Austin(Spirit) -> Houston(United). Time: 129 Cost: 212.00
-
-Flight 2: Chicago, Dallas (Cost)
-Path 1: Chicago -> Austin(American) -> Dallas(Spirit). Time: 282 Cost: 261.00
-Path 2: Chicago -> Austin(American) -> Houston(United) -> Dallas(Spirit). Time: 368 Cost: 378.00
 
